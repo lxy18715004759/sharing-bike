@@ -1,9 +1,48 @@
 import React from "react"
-import {Card,Form, Button , Input ,Select,Icon,Radio, InputNumber, Switch,DatePicker,TimePicker,Upload} from "antd"
+import {Card,Form, Button , Input ,Select,Icon,Radio, InputNumber, Switch,DatePicker,TimePicker,Upload,Checkbox,message} from "antd"
 import moment from "moment"
 
 class Register extends React.Component{
 
+
+    state={
+        imageUrl:"",
+        loading:false,
+    }
+
+    getBase64=(img, callback)=>{
+         const reader = new FileReader();
+         reader.addEventListener('load', () => callback(reader.result));
+         reader.readAsDataURL(img);
+    }
+
+    handleChange= (info)=>{
+            if (info.file.status === 'uploading') {
+        this.setState({ loading: true });
+        return;
+        }
+        if (info.file.status === 'done') {
+        // Get this url from response in real world.
+        this.getBase64(info.file.originFileObj, imageUrl =>
+            this.setState({
+                imageUrl,
+                loading: false,
+            }),
+        );
+        }
+    }
+
+    handleRegister=()=>{
+
+        let info = this.props.form.getFieldsValue();
+        this.props.form.validateFields((err,values)=>{
+            if(!err){
+                console.log("values",values);
+                message.success("正在创建中...");
+            }
+        });
+        console.log("info",info);
+    }
 
     render(){
 
@@ -22,6 +61,17 @@ class Register extends React.Component{
                 sm:12
             }
         }
+
+        const offsetLayout = {
+            wrapperCol:{
+                xs:24,
+                sm:{
+                    span:20,
+                    offset:4
+                }
+            }
+        }
+
         return (
             <div>
                 
@@ -67,7 +117,7 @@ class Register extends React.Component{
                             {
                                 getFieldDecorator("sex",{
                                     
-                                    initialValue:"",
+                                    initialValue:"1",
                                     rules:[
                                       
                                     ]
@@ -134,14 +184,7 @@ class Register extends React.Component{
                                     initialValue:"",
                                     rules:[]
                                 })(
-                                    <InputTextArea 
-                                        autoSize={
-                                            {
-                                                minRows:4,
-                                                maxRows:6
-                                            }
-                                        }
-                                    ></InputTextArea>
+                                    <InputTextArea></InputTextArea>
                                 )
                             }
                         </FormItem>
@@ -161,9 +204,30 @@ class Register extends React.Component{
                                     initialValue:"",
                                     rules:[]
                                 })(
-                                    <Upload></Upload>
+                                    <Upload
+                                        listType="picture-card"
+                                        showUploadList={false}
+                                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                        onChange={this.handleChange}
+                                    >
+                                        {this.state.imageUrl?<img src={this.state.imageUrl} alt=""/>:<Icon type="plus"></Icon>}
+                                    </Upload>
                                 )
                             }
+                        </FormItem>
+                        <FormItem {...offsetLayout} >
+                            {
+                                getFieldDecorator("readered",{
+                                    valuePropName:"checked",
+                                    initialValue:true,
+                                    rules:[]
+                                })(
+                                    <Checkbox>我已阅读相关协议</Checkbox>
+                                )
+                            }
+                        </FormItem>
+                        <FormItem {...offsetLayout}>
+                            <Button type="primary" onClick={this.handleRegister}>注册</Button>
                         </FormItem>
                     </Form>
                 </Card>
