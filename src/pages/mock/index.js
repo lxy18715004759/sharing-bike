@@ -1,0 +1,91 @@
+import Mock from "mockjs"
+
+export default {
+
+    getBasicList:()=>{
+        Mock.mock("/table/basicList","get",{
+            code:0,
+            result:{
+                "list|10":[
+                    {
+                        "id|+1":11111,
+                        "userName":"@cname",
+                        "sex|1-2":1,
+                        "status|1-2":1,
+                        "interest|1-8":1,
+                        "birthdate":"1990-12-12",
+                        "address":"杭州",
+                        "time":"09:00"
+                    }
+                ]
+            },
+            currentPageNum:1,
+            pageSize:10,
+            total:10000
+        });
+    },
+    getHighList:()=>{
+        Mock.mock("/table/highList",'get',{
+            code:"0",
+            result:{
+                 "list|100":[
+                    {
+                        "id|+1":11111,
+                        "userName":"@cname",
+                        "sex|1-2":1,
+                        "status|1-2":1,
+                        "interest|1-8":1,
+                        "birthdate":"1990-12-12",
+                        "address":"杭州",   
+                        "time":"09:00",
+                        "edu|1-3":1,
+                        "money":"10w",
+                        "heatly|1-2":1,
+                        "child|1-2":1,
+                        "badRecord|1-2":1,
+                        "father":"@cname",
+                        "key|+1":1000000,
+                    }
+                ]
+            },
+            currentPageNum:1,
+            pageSize:10,
+            total:10000
+        });
+    },
+    getCityList(){
+        Mock.mock("http://localhost:3000/city/list","get",{
+
+            code:"0",
+            result:{
+                "list|10":[
+                    {
+                        "city_id|+1":10000,
+                        "city_name":"@city",
+                        "mode|1-2":1,
+                        "op_mode|1-2":1,
+                        "frachisee_name":"松果自营",
+                        "city_admins|1-2":[{
+                            "username":"@cname",
+                            "userid|+1":2222
+                        }],
+                        "open_time":"@datetime",
+                        "update_time":new Date().getTime(),
+                        "sys_user_name":"@cname"
+                    },
+                ],
+                page:1,
+                page_size:10,
+                page_total:80,
+                page_count:8
+                
+            }
+        });
+    },
+    getOpenCity(){
+        Mock.mock("http://localhost:3000/city/openCity","get",{
+            code:"0",
+            result:"开通成功"
+        });
+    }
+}

@@ -44,6 +44,16 @@ class Register extends React.Component{
         console.log("info",info);
     }
 
+
+    handleSwitch=(status)=>{
+        message.info("Switch组件状态"+status);
+    }
+
+    handleRadio = (e)=>{
+        message.info("radio");
+        console.log("Radio",e.target.value);
+    }
+
     render(){
 
         const FormItem = Form.Item;
@@ -122,9 +132,27 @@ class Register extends React.Component{
                                       
                                     ]
                                 })(
-                                   <RadioGroup>
-                                       <Radio value="1">男</Radio>
-                                       <Radio value="2">女</Radio>
+                                   <RadioGroup
+                                        options={
+                                            [
+                                                {
+                                                    label: "男",
+                                                    value:"1"
+                                                },
+                                                {
+                                                    label:"女",
+                                                    value:"2"
+                                                }
+
+                                            ]
+
+                                        }
+                                        onChange={
+                                            this.handleRadio
+                                        }
+                                   >
+                                       {/* <Radio value="1">男</Radio>
+                                       <Radio value="2">女</Radio> */}
                                    </RadioGroup>
                                 )
                             }
@@ -161,7 +189,9 @@ class Register extends React.Component{
                                     valuePropName:"checked",
                                     initialValue:true
                                 })(
-                                    <Switch></Switch>
+                                    <Switch
+                                        onChange={this.handleSwitch}
+                                    ></Switch>
                                 )
                             }
                         </FormItem>

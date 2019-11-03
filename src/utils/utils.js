@@ -13,5 +13,6 @@ export default {
         if(!timestamp) return "";
         let date = new Date(timestamp);
         return date.getFullYear() + '-' + this.addPreZero((date.getMonth() + 1)) + '-' + this.addPreZero(date.getDate()) + ' ' + this.addPreZero(date.getHours()) + ':' + this.addPreZero(date.getMinutes()) + ':' + this.addPreZero(date.getSeconds());
-    }
+    },
+    
 }

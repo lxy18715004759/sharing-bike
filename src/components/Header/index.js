@@ -13,7 +13,7 @@ class Header extends React.Component{
         weather : "",
         dayPictureUrl : "",
     }
-    componentWillMount(){
+    componentDidMount(){
 
         this.setState({
             userName:"用户123"
@@ -26,7 +26,7 @@ class Header extends React.Component{
             });
         });
 
-        this.getWeatherAPIData();    // 获取天气接口
+        // this.getWeatherAPIData();    // 获取天气接口
     }
 
     getWeatherAPIData(){
